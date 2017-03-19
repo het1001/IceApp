@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/usr/workspace/IceApp/android/app/build/intermediates/exploded-aar/IceApp/react-native-image-picker/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="23c17f4fe3715978eefa55a7f2edee7044ecae5b">
+        <dex dex="/usr/workspace/IceApp/android/app/build/intermediates/pre-dexed/debug/classes-85b17571c539ee4fbb1c4c34b2621ab45e92e181.jar" />
+    </item>
+    <item
+        jar="/usr/workspace/IceApp/android/app/build/intermediates/exploded-aar/IceApp/reactamaplocation/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1e89b128ad096f4db824d7505eef5399d75618e4">
+        <dex dex="/usr/workspace/IceApp/android/app/build/intermediates/pre-dexed/debug/classes-27e25fe7574753aa0081585c9c5eacbfbd60436c.jar" />
+    </item>
+
+</items>

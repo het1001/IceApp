@@ -1,0 +1,9 @@
+rootProject.name = 'IceApp'
+
+include ':app'
+
+include ':react-native-image-picker'
+project(':react-native-image-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-picker/android')
+
+include ':reactamaplocation'
+project(':reactamaplocation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-amap-location')
