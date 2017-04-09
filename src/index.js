@@ -1,5 +1,5 @@
 /**
- * Created by houenteng on 17-2-1.
+ * create by houenteng at 2017-04-08 21:17
  */
 
 if (__DEV__) {
@@ -10,6 +10,7 @@ if (__DEV__) {
 
 import { AppRegistry } from 'react-native';
 import IceApp from './IceApp';
+
 
 import Storage from 'react-native-storage';
 import { AsyncStorage } from 'react-native';
@@ -43,6 +44,5 @@ global.screenWith = Dimensions.get('window').width;
 global.screenHeight = Dimensions.get('window').height;
 
 global.PHONE_REG = /^1[34578]\d{9}$/;
-
 
 AppRegistry.registerComponent('IceApp', () => IceApp);

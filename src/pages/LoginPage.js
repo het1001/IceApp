@@ -21,11 +21,7 @@ import {
     Toast,
 } from 'antd-mobile';
 
-import Router from 'react-native-simple-router';
-
-import ImagePicker from 'react-native-image-picker';
 import HeaderNoBack from '../compontent/HeaderNoBack';
-import UserAction from '../action/UserAction';
 
 import RegisterPhone from '../compontent/register/RegisterPhone';
 
@@ -88,47 +84,6 @@ const LoginPage = React.createClass({
         //
         //     }
         // })
-        ImagePicker.showImagePicker({
-            title: '选择门店照片',
-            cancelButtonTitle: '取消',
-            takePhotoButtonTitle: '拍照',
-            chooseFromLibraryButtonTitle: '打开相册',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images'
-            }
-        }, (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            }
-            else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            }
-            else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            }
-            else {
-                let source;
-
-                // You can display the image using either data...
-                source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-                // Or a reference to the platform specific asset location
-                if (Platform.OS === 'android') {
-                    source = { uri: response.uri };
-                } else {
-                    source = { uri: response.uri };
-                }
-
-                console.log(source);
-
-                this.setState({
-                    avatarSource: source
-                });
-            }
-        });
 
     },
 

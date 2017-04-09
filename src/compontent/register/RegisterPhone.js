@@ -16,8 +16,6 @@ import {
 } from 'antd-mobile';
 
 import HeaderNoBack from '../HeaderNoBack';
-import RegisterAuthCode from './RegisterAuthCode';
-import UserAction from '../../action/UserAction';
 
 
 const RegisterPhone = React.createClass({
@@ -53,7 +51,7 @@ const RegisterPhone = React.createClass({
             return;
         }
 
-        UserAction.getUser({
+        /*UserAction.getUser({
             params: {
                 userName: this.state.phone
             },
@@ -67,7 +65,7 @@ const RegisterPhone = React.createClass({
             error: (error) => {
                 Toast.show(error, Toast.LONG);
             }
-        });
+        });*/
     },
 
     handleBack() {
