@@ -3,14 +3,13 @@
  */
 
 if (__DEV__) {
-    global.__REMOTE_URL__='http://192.168.1.110:8080';
+    global.__REMOTE_URL__='http://192.168.1.109:8080';
 } else {
-    global.__REMOTE_URL__='http://192.168.1.110:8080';
+    global.__REMOTE_URL__='http://192.168.1.109:8080';
 }
 
 import { AppRegistry } from 'react-native';
 import IceApp from './IceApp';
-
 
 import Storage from 'react-native-storage';
 import { AsyncStorage } from 'react-native';
@@ -37,7 +36,7 @@ global.storage = new Storage({
     // 或是写到另一个文件里，这里require引入
     // 或是在任何时候，直接对storage.sync进行赋值修改
     sync: {}
-})
+});
 
 var Dimensions = require('Dimensions');
 global.screenWith = Dimensions.get('window').width;

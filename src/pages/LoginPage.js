@@ -5,13 +5,7 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     PropTypes,
-    View,
     Text,
-    Navigator,
-    Platform,
-    Image,
-    ToastAndroid,
-    TouchableHighlight
 } from 'react-native';
 
 import {
@@ -24,6 +18,16 @@ import {
 import HeaderNoBack from '../compontent/HeaderNoBack';
 
 import RegisterPhone from '../compontent/register/RegisterPhone';
+import MainPage from './MainPage';
+
+import DeviceInfoUtil from '../util/DeviceInfoUtil';
+
+import UserAction from '../action/UserAction';
+
+import CompleteShopPage from './CompleteShopPage';
+import AuthingPage from './AuthingPage';
+import AuthRejectPage from './AuthRejectPage';
+import FreeaePage from './FreeaePage';
 
 const styles = StyleSheet.create({
     root: {
@@ -46,123 +50,151 @@ const LoginPage = React.createClass({
         //title: PropTypes.string.isRequired,
     },
     getInitialState(){
+        let phone = this.props.phone;
+        if (phone) {
+            const phoneArr = phone.split("");
+            phoneArr[2] += " ";
+            phoneArr[6] += " ";
+            phone = phoneArr.join("");
+        }
+
         return {
-            phone: '',
+            phone: phone || '',
             pwd: '',
-            data: '',
-            avatarSource: {uri: 'file:///storage/emulated/0/Pictures/image-a9d13fa0-2f35-487d-9ce6-1f60897ae573.jpg'},
         };
     },
 
     unlisten: null,
 
     componentWillMount() {
-        // this.unlisten = AMapLocation.addEventListener((data) => {
-        //     console.log('data', data);
-        //     if (data && data.longitude) {
-        //         AMapLocation.stopLocation();
-        //         this.unlisten.remove();
-        //     }
-        // });
-        // AMapLocation.startLocation({
-        //     accuracy: 'HighAccuracy',
-        //     killProcess: true,
-        //     needDetail: true,
-        // });
-    },
+        /*let i = 0;
+        this.unlisten = AMapLocation.addEventListener((data) => {
+            console.log('data', data);
+            i++;
 
-    onSubmitxx() {
+            if (data && data.longitude) {
+                AMapLocation.stopLocation();
+                this.unlisten.remove();
+            } else {
+                if (i === 5) {
+                    AMapLocation.stopLocation();
+                    this.unlisten.remove();
+                }
+            }
+        });
 
-        // UserAction.login({
-        //     params: {},
-        //     success: (data) => {
-        //         this.setState({
-        //            data: data[0].name
-        //         });
-        //     },
-        //     error: (error) => {
-        //
-        //     }
-        // })
-
+        AMapLocation.startLocation({
+            accuracy: 'HighAccuracy',
+            killProcess: true,
+            needDetail: true,
+        });*/
     },
 
     onSubmit() {
-        Toast.success('加载成功!!!');
+        // Toast.success('加载成功!!!');
 
-        {/*UserAction.login({*/}
-            {/*params: {*/}
-                {/*userName: this.state.phone,*/}
-                {/*passWord: this.state.pwd,*/}
-            {/*},*/}
-            {/*success: (data) => {*/}
-                {/*storage.save({*/}
-                    {/*key: 'user',  // 注意:请不要在key中使用_下划线符号!*/}
-                    {/*rawData: {*/}
-                        {/*userName: this.state.phone,*/}
-                        {/*passWord: this.state.pwd*/}
-                    {/*},*/}
-
-                    {/*// 如果不指定过期时间，则会使用defaultExpires参数*/}
-                    {/*// 如果设为null，则永不过期*/}
-                    {/*// expires: 1000 * 3600*/}
-                {/*});*/}
-
-                {/*storage.save({*/}
-                    {/*key: 'token',*/}
-                    {/*rawData: data.token,*/}
-                {/*});*/}
-
-                {/*this.props.callback();*/}
-                {/*ToastAndroid.show('登录成功', ToastAndroid.SHORT);*/}
-            {/*},*/}
-            {/*error: (error) => {*/}
-                {/*console.warn(error);*/}
-                {/*switch (error) {*/}
-                    {/*case 'USERNAME_NOT_EXIST': {*/}
-                        {/*Alert.alert(*/}
-                            {/*'失败',*/}
-                            {/*'用户名不存在',*/}
-                        {/*);*/}
-                    {/*}*/}
-                    {/*break;*/}
-                    {/*case 'PWD_CHECK_FAILED': {*/}
-        //                 Alert.alert(
-        //                     '失败',
-        //                     '密码错误',
-        //                 );
-        //             }
-        //             break;
-        //
-        //             default: {
-        //                 Alert.alert(
-        //                     '失败',
-        //                     '未知错误',
-        //                 );
-        //             }
-        //         }
-        //     }
-        // });
-    },
-
-    handleBack() {
-        if (this.props.navigator && this.props.navigator.getCurrentRoutes().length > 1) {
-            this.props.navigator.pop();
-            return true;
+        if (!this.state.phone) {
+            Toast.show("请输入手机号", Toast.SHORT);
+            return;
         }
 
-        return false;
+        if (!this.state.pwd) {
+            Toast.show("请输入密码", Toast.SHORT);
+            return;
+        }
+
+        const phone = this.state.phone.replace(/ /g, "");
+        if (!PHONE_REG.test(phone)) {
+            Toast.show("请输入有效手机号", Toast.SHORT);
+            return;
+        }
+
+        UserAction.login({
+            params: {
+                userName: phone,
+                passWord: this.state.pwd,
+                position: JSON.stringify(this.props.position),
+                device: JSON.stringify(DeviceInfoUtil.getDeviceInfo()),
+            },
+            success: (res) => {
+                console.log(res);
+
+                if (res && res.success) {
+                    storage.save({
+                        key: 'user',  // 注意:请不要在key中使用_下划线符号!
+                        rawData: {
+                            userName: phone,
+                            passWord: this.state.pwd,
+                            token: res.data.token
+                        },
+
+                        // 如果不指定过期时间，则会使用defaultExpires参数
+                        // 如果设为null，则永不过期
+                        // expires: 1000 * 3600*/
+                    });
+
+                    let component = {
+                        id: 'mainPage',
+                        component: MainPage,
+                        params: {
+                            resetLogin: this.resetLogin
+                        }
+                    };
+
+                    if (res.data.state === 'PASSED') {
+                        component.id = 'completeShopPage';
+                        component.component = CompleteShopPage;
+                    } else if (res.data.state === 'AUDITING') {
+                        component.id = 'authingPage';
+                        component.component = AuthingPage;
+                    } else if (res.data.state === 'AUDIT_NO') {
+                        component.id = 'authRejectPage';
+                        component.component = AuthRejectPage;
+                        component.params.phone = phone;
+                    } else if (res.data.state === 'FREEAE') {
+                        component.id = 'freeaePage';
+                        component.component = FreeaePage;
+                    }
+
+                    this.props.navigator.push(component);
+                } else {
+                    switch (res.resultCode) {
+                        case 'USER_NOT_EXIST':
+                            Toast.fail("该账户不存在，请注册", Toast.SHORT);
+                            break;
+                        case 'PWD_CHECK_FAILED':
+                            Toast.fail("您输入的账号或密码错误", Toast.SHORT);
+                            break;
+                        default:
+                            Toast.fail("系统错误", Toast.SHORT);
+                    }
+                }
+            },
+            error: (error) => {
+                console.warn(error);
+            }
+        });
+    },
+
+    resetLogin() {
+        this.props.navigator.pop();
     },
 
     goRegist() {
         this.props.navigator.push({
-            id: '',
+            id: 'registerPhone',
             component: RegisterPhone
         });
     },
 
     goForgetPwd() {
-
+        this.props.navigator.push({
+            id: 'registerPhone',
+            component: RegisterPhone,
+            params: {
+                action: 'FORGETPW'
+            }
+        });
     },
 
     render() {
@@ -186,7 +218,7 @@ const LoginPage = React.createClass({
                 <Button type="primary" onClick={this.onSubmit} >登录</Button>
                 <Text style={{marginTop: 5}}>
                     <Text style={styles.font} onPress={this.goRegist}>新用户注册</Text>
-                    <Text style={{textAlign:'right'}} onPress={this.goForgetPwd}>         </Text>
+                    <Text style={{textAlign:'right'}}>         </Text>
                     <Text style={styles.font} onPress={this.goForgetPwd}>忘记密码？</Text>
                 </Text>
             </List>
