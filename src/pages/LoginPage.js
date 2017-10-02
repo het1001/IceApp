@@ -64,35 +64,7 @@ const LoginPage = React.createClass({
 		};
 	},
 
-	unlisten: null,
-
-	componentWillMount() {
-		/*let i = 0;
-		this.unlisten = AMapLocation.addEventListener((data) => {
-				console.log('data', data);
-				i++;
-
-				if (data && data.longitude) {
-						AMapLocation.stopLocation();
-						this.unlisten.remove();
-				} else {
-						if (i === 5) {
-								AMapLocation.stopLocation();
-								this.unlisten.remove();
-						}
-				}
-		});
-
-		AMapLocation.startLocation({
-				accuracy: 'HighAccuracy',
-				killProcess: true,
-				needDetail: true,
-		});*/
-	},
-
 	onSubmit() {
-		// Toast.success('加载成功!!!');
-
 		if (!this.state.phone) {
 			Toast.show("请输入手机号", Toast.SHORT);
 			return;

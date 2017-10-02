@@ -12,6 +12,8 @@ import {
 	Toast
 } from 'antd-mobile';
 
+
+
 import WaitingPage from './pages/WaitingPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -39,24 +41,26 @@ const IceApp = React.createClass({
 	getInitialState() {
 		return {
 			phone: '',
-			userState: '',
-			position: {
-				error: 'NULL'
-			}
+			userState: ''
 		}
+	},
+
+	componentWillMount() {
+		// 1. 获取手机本地地址（异步去做这个事情）
+		this.getLocation();
+
+		// 2. 2秒后初始化登录（2秒是广告页显示时间）
+		setTimeout(this.initLogin, 2000);
 	},
 
 	unlisten: null,
 
-	componentWillMount() {
+	getLocation() {
 		let i = 0;
 		this.unlisten = AMapLocation.addEventListener((data) => {
-			this.setState({
-				position: data
-			});
-
 			i++;
 			if (data && data.longitude) {
+				global.localInfo.position = data;
 				AMapLocation.stopLocation();
 				this.unlisten.remove();
 			} else {
@@ -72,25 +76,23 @@ const IceApp = React.createClass({
 			killProcess: true,
 			needDetail: true,
 		});
-
-		setTimeout(this.initLogin, 2000);
 	},
 
 	initLogin() {
+		/** 缓存里取用户手机号
+		 * 有的话执行登录
+		 * 没有的话设置userState为NOT_LOGIN，显示登录入口
+		**/
 		storage.load({
 			key: 'user',
 		}).then(ret => {
-			this.setState({
-				phone: ret.userName,
-			});
+			global.localInfo.phone = ret.userName;
 
 			this.onLogin(ret.userName, ret.passWord, true);
 		}).catch(err => {
-			setTimeout(() => {
-				this.setState({
-					userState: 'NOT_LOGIN',
-				});
-			}, 2000);
+			this.setState({
+				userState: 'NOT_LOGIN',
+			});
 		});
 	},
 
@@ -99,7 +101,7 @@ const IceApp = React.createClass({
 			params: {
 				userName,
 				passWord,
-				position: JSON.stringify(this.state.position),
+				position: JSON.stringify(global.localInfo.position),
 				device: JSON.stringify(DeviceInfoUtil.getDeviceInfo()),
 			},
 			success: (res) => {
@@ -129,9 +131,6 @@ const IceApp = React.createClass({
 							Toast.fail("系统错误", Toast.SHORT);
 					}
 				}
-			},
-			error: (error) => {
-				console.warn(error);
 			}
 		});
 	},
@@ -147,8 +146,9 @@ const IceApp = React.createClass({
 			<View style={styles.root}>
 				{
 					(() => {
+						// 初始化的时候，显示等待页面（广告）
 						if (!this.state.userState) {
-							return <WaitingPage/>;
+							return <WaitingPage />;
 						} else if (this.state.userState === 'NOT_LOGIN') {
 							return <Navigator
 								initialRoute={{

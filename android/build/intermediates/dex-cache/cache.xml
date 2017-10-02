@@ -3,6 +3,33 @@
 
     <item
         is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.0.1_d40fe8417acc0a0e072c41e2f2332e695196833c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\10.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="cfa47e1b140562d47bc670629d07e209cd8b02c4">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-gcm-10.2.1_b484eece7b6b736dd3bc41b22ca1052dae5e5178.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5a61f17cd72e20aa4323cbf5f909b7c609619275">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-drawee-1.0.1_91c7af6f5e3d67749e1fd85b516feb568928644d.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="E:\workspace3\IceApp\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\libs\internal_impl-24.0.0.jar"
         jumboMode="false"
         optimize="true"
@@ -36,6 +63,15 @@
         revision="23.0.1"
         sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
         <dex dex="E:\workspace3\IceApp\android\app\build\intermediates\pre-dexed\debug\support-annotations-24.0.0_d6267d108258454c1b7083440e9338e477d733ce.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.soloader\soloader\0.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.soloader-soloader-0.1.0_2509b43412b00c4d8c5fcc3801a989f291a497c2.jar" />
     </item>
     <item
         is-multidex="false"
@@ -84,6 +120,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="050f688115ea65a0292d8483a6ffe6bcdab1e2ef">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-base-1.0.1_9a1b65adde2b74ad5f81f12f41f91b9939f0f4c5.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="E:\workspace3\IceApp\android\app\build\intermediates\exploded-aar\IceApp\reactamaplocation\unspecified\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -111,6 +156,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d9c4402c3057225d80cbbbec52154e7a25b0ebdf">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-1.0.1_5733c4e9606462cef2498c18395c9cdc91b88987.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="E:\workspace3\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.45.1\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -129,21 +183,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="E:\workspace3\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\1.0.1\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="5a61f17cd72e20aa4323cbf5f909b7c609619275">
-        <dex dex="E:\workspace3\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-drawee-1.0.1_4a477fcbbad5dc2dc248db55ede9498b739f3d28.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp-urlconnection\3.4.1\63994437f62bc861bc20c605d12962f7246116d1\okhttp-urlconnection-3.4.1.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="63994437f62bc861bc20c605d12962f7246116d1">
         <dex dex="E:\workspace3\IceApp\android\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-3.4.1_8c53f11782c30ceeab64a97cd78f9c7aa80afcf8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace3\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5a61f17cd72e20aa4323cbf5f909b7c609619275">
+        <dex dex="E:\workspace3\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-drawee-1.0.1_4a477fcbbad5dc2dc248db55ede9498b739f3d28.jar" />
     </item>
     <item
         is-multidex="false"
@@ -156,6 +210,24 @@
     </item>
     <item
         is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2668e49e4e31c7d451b76a36009b902bf44e0d70">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fbcore-1.0.1_36519a323614d6bb546ed9410c68492582a37472.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fresco\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="cf836a435a496eb22ff2aa69aa1e619462549f81">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fresco-1.0.1_6066915d4ddc7505df8811fa14b9c29270470342.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="E:\workspace3\IceApp\android\app\build\intermediates\exploded-aar\IceApp\react-native-image-picker\unspecified\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -165,12 +237,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="E:\workspace3\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\1.0.1\jars\classes.jar"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.1\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
-        sha1="050f688115ea65a0292d8483a6ffe6bcdab1e2ef">
-        <dex dex="E:\workspace3\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-base-1.0.1_02128486d2f6d5e4736840e5d04ee67d10f5dfb0.jar" />
+        sha1="bdcc2a9572f18b8c90a3a157cab6cdfc97c6c736">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-10.2.1_9fcea37450ce994c3b4f93956e4015f9abbdbd3f.jar" />
     </item>
     <item
         is-multidex="false"
@@ -183,6 +255,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="E:\workspace3\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="050f688115ea65a0292d8483a6ffe6bcdab1e2ef">
+        <dex dex="E:\workspace3\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-base-1.0.1_02128486d2f6d5e4736840e5d04ee67d10f5dfb0.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
         jumboMode="false"
         optimize="true"
@@ -192,12 +273,75 @@
     </item>
     <item
         is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-iid\10.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="abf7c64e0bbaaa931738856734f76646ae62d9a5">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-iid-10.2.1_acfa86e5445630ec9dd3abe504218872367d26ba.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\IceApp\react-native-device-info\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2e4336ffc2b7653868134d7f6f8b28523ef54645">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\IceApp-react-native-device-info-unspecified_14cd3b6aa77233f60988cdac6e823750e390b499.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="E:\workspace3\IceApp\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\10.2.1\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="19696dc358ac668e341f28c41e3387d61ccdb81d">
         <dex dex="E:\workspace3\IceApp\android\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-10.2.1_902b01cdfa73cbc8688e4d9a663a197bc35ca28c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-23.4.0_d75376455f516f1b474816aec05cf3ac99478f1a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\IceApp\react-native-image-picker\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9f95540d3b14aed0250ba28dd07beece0df87598">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\IceApp-react-native-image-picker-unspecified_9765b87b7b9a48f7d85e84c7d1873b32e9fc930f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\IceApp\reactamaplocation\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="192aeb15ca51bc527d80ee6224c17c4dcb6bca79">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\IceApp-reactamaplocation-unspecified_83ba084f1b73acf97d1df386b14286fc3ac40db7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\libs\internal_impl-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\internal_impl-24.0.0_4f629896c162c75885e047c2752d8585bc968944.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\IceApp\reactamaplocation\unspecified\jars\libs\AMap_Location_V2.4.0_20160308.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2a21e7f691d46ee79a364d12ee458b3e5156adda">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\AMap_Location_V2.4.0_20160308_461a29beebadedb09722e8ef24f0073d81d35d10.jar" />
     </item>
     <item
         is-multidex="false"
@@ -216,6 +360,15 @@
         revision="23.0.1"
         sha1="cfa47e1b140562d47bc670629d07e209cd8b02c4">
         <dex dex="E:\workspace3\IceApp\android\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-gcm-10.2.1_b02be8aa4fbe4ce7e7a014e57c89d5d259ce3b44.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\IceApp\react-native-vector-icons\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f2cf527de8d0bd35d72088fafea02395ba4a9eec">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\IceApp-react-native-vector-icons-unspecified_0b134bd8309e93d3bf4b819cddc77db703396b46.jar" />
     </item>
     <item
         is-multidex="false"
@@ -255,6 +408,33 @@
     </item>
     <item
         is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\10.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="19696dc358ac668e341f28c41e3387d61ccdb81d">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-10.2.1_b737baea6dc5417a0f5dc42851cf53e7a5534d7e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.0.0_8e1ae2b6cda0923e71e30ac6c3cf6c856a0f285a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fbui.textlayoutbuilder\textlayoutbuilder\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_fe9ee2e6cf3ff4203aedb63618832368a1eb42c2.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="E:\workspace3\IceApp\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.1\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -273,6 +453,33 @@
     </item>
     <item
         is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\10.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6003d64df88a6ce5e961fa2bad7f1b9b97689ac1">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tasks-10.2.1_1a1c03ff97f47ef0eec2ecd58fc53e17198b944f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-okhttp3\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ba9b39366b723ccff6359d1117332968e98a4aca">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-okhttp3-1.0.1_20f10014bee91d7c6261cdfc6cfe7883a21e1f00.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.43.2\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="dd7e9e4044d541b253c526294b9f4985029d846c">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.react-react-native-0.43.2_bde1ad5ccd6f3b75ad1041e418af657ba7230d29.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\com.facebook.fbui.textlayoutbuilder\staticlayout-proxy\1.0\f162442a19fff13995fbd51ba414d9ee05579080\staticlayout-proxy-1.0.jar"
         jumboMode="false"
         optimize="true"
@@ -288,6 +495,15 @@
         revision="23.0.1"
         sha1="8f615bca00639150c9eb6175d4b5471193f70794">
         <dex dex="E:\workspace3\IceApp\android\app\build\intermediates\pre-dexed\debug\com.facebook.soloader-soloader-0.1.0_5470d48d1e2ff9369114db25f58e0a63b6ca550d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\workspace\IceApp\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.43.2\jars\libs\infer-annotations-1.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="dcac634e137395f79693ec760f081a86eb2bd84e">
+        <dex dex="E:\workspace\IceApp\android\app\build\intermediates\pre-dexed\debug\infer-annotations-1.5_e6246eb141e216c30b0f9243eb1d7db5c9ed082b.jar" />
     </item>
 
 </items>

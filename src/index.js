@@ -45,4 +45,9 @@ global.screenHeight = Dimensions.get('window').height;
 
 global.PHONE_REG = /^1[34578]\d{9}$/;
 
+global.localInfo = {
+	position: null,
+	phone: null
+};
+
 AppRegistry.registerComponent('IceApp', () => IceApp);
