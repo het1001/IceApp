@@ -3,46 +3,45 @@
  */
 import React from 'react';
 import {
-    PropTypes
+	PropTypes
 } from 'react-native';
 
 import {
-    List,
-    InputItem,
-    Button
+	List,
+	InputItem,
+	Button
 } from 'antd-mobile';
 
 import HeaderNoBack from '../HeaderNoBack';
 import LoginOutButton from '../common/LoginOutButton';
 
 const Personal = React.createClass({
-    propTypes: {
-        //title: PropTypes.string.isRequired,
-    },
-    getInitialState(){
-        return {
-        };
-    },
-    componentWillMount() {
+	propTypes: {
+		//title: PropTypes.string.isRequired,
+	},
+	getInitialState() {
+		return {};
+	},
+	componentWillMount() {
 
-    },
+	},
 
-    componentDidMount () {
-    },
+	componentDidMount() {
+	},
 
-    componentWillUnmount () {
-    },
+	componentWillUnmount() {
+	},
 
-    render() {
-        return (
-            <List>
-                <HeaderNoBack text="白云冷饮"/>
-                <List.Item>
-                    <LoginOutButton {...this.props} />
-                </List.Item>
-            </List>
-        );
-    }
+	render() {
+		return (
+			<List>
+				<HeaderNoBack text="白云冷饮"/>
+				<List.Item>
+					<LoginOutButton {...this.props} />
+				</List.Item>
+			</List>
+		);
+	}
 });
 
 export default Personal;

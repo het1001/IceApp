@@ -3,26 +3,49 @@
  */
 
 const AjaxUtil = {
-    post: ({url, params, success, error}) => {
-        storage.load({
-            key: 'user',
-        }).then(ret => {
-            fetch(__REMOTE_URL__ + url, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'token': ret.token,
-                },
-                body: JSON.stringify(params)
-            }).then((response) => { return response.json(); })
-                .then((data) => {
-                    success(data);
-                }).catch((errors) => {
-                error(errors);
-            });
-        });
-    }
+	post: ({url, params, success, error}) => {
+		storage.load({
+			key: 'user',
+		}).then(ret => {
+			fetch(__REMOTE_URL__ + url, {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json',
+					'token': ret.token,
+				},
+				body: JSON.stringify(params)
+			}).then((response) => {
+				return response.json();
+			})
+				.then((data) => {
+					success(data);
+				}).catch((errors) => {
+					if (error) {
+						error(errors);
+					}
+			});
+		});
+	},
+	postNt: ({url, params, success, error}) => {
+		fetch(__REMOTE_URL__ + url, {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(params)
+		}).then((response) => {
+			return response.json();
+		})
+			.then((data) => {
+				success(data);
+			}).catch((errors) => {
+				if (error) {
+					error(errors);
+				}
+		});
+	}
 }
 
 export default AjaxUtil;

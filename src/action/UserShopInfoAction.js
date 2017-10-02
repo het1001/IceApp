@@ -5,12 +5,12 @@
 import AjaxUtil from '../util/AjaxUtil';
 
 export default UserShopInfoAction = {
-    getLastShopInfo : ({params, success, error}) => {
-        AjaxUtil.post({
-            url: '/ice/app/shopinfo/getShopInfo.json',
-            params,
-            success,
-            error
-        });
-    },
+	getLastShopInfo: ({params, success, error}) => {
+		AjaxUtil.post({
+			url: '/ice/app/shopinfo/getShopInfo.json',
+			params,
+			success,
+			error
+		});
+	},
 }

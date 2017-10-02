@@ -3,35 +3,34 @@
  */
 import React from 'react';
 import {
-    PropTypes
+	PropTypes
 } from 'react-native';
 
 import {
-    Button
+	Button
 } from 'antd-mobile';
 
 const LoginOutButton = React.createClass({
-    propTypes: {
-        //title: PropTypes.string.isRequired,
-    },
-    getInitialState(){
-        return {
-        };
-    },
+	propTypes: {
+		//title: PropTypes.string.isRequired,
+	},
+	getInitialState() {
+		return {};
+	},
 
-    onLoginOut() {
-        storage.remove({
-            key: 'user'
-        });
+	onLoginOut() {
+		storage.remove({
+			key: 'user'
+		});
 
-        this.props.resetLogin();
-    },
+		this.props.resetLogin();
+	},
 
-    render() {
-        return (
-            <Button type="warning" onClick={this.onLoginOut} >退出登录</Button>
-        );
-    }
+	render() {
+		return (
+			<Button type="warning" onClick={this.onLoginOut}>退出登录</Button>
+		);
+	}
 });
 
 export default LoginOutButton;
