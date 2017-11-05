@@ -14,22 +14,16 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import LoginOutButton from '../compontent/common/LoginOutButton';
 
-const FreeaePage = React.createClass({
-	propTypes: {
-		//title: PropTypes.string.isRequired,
-	},
-	getInitialState() {
-		return {};
-	},
-
-	onSubmit() {
-
-	},
+class FreeaePage extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+	};
 
 	render() {
 		return (
 			<List>
-				<HeaderNoBack text="白云冷饮"/>
+				<HeaderNoBack />
 				<List.Item>
 					<Result
 						img={<Icon name="ios-close-circle" size={50} color={'#f80a11'}/>}
@@ -38,11 +32,11 @@ const FreeaePage = React.createClass({
 					/>
 				</List.Item>
 				<List.Item>
-					<LoginOutButton {...this.props} />
+					<LoginOutButton resetLogin={this.props.navigation.state.params.resetLogin} />
 				</List.Item>
 			</List>
 		);
 	}
-});
+}
 
 export default FreeaePage;

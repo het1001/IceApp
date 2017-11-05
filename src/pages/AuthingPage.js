@@ -5,9 +5,13 @@
 import React from 'react';
 
 import {
+	BackHandler
+} from 'react-native';
+
+import {
 	List,
 	Result,
-	Card
+	Button
 } from 'antd-mobile';
 
 import HeaderNoBack from '../compontent/HeaderNoBack';
@@ -15,21 +19,23 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import LoginOutButton from '../compontent/common/LoginOutButton';
 
-const AuthingPage = React.createClass({
-	propTypes: {
-		//title: PropTypes.string.isRequired,
-	},
-	getInitialState() {
-		return {};
-	},
+class AuthingPage extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+	};
 
 	componentWillMount() {
+		BackHandler.addEventListener('hardwareBackPress', this.props.navigation.state.params.onBackAndroid);
+	};
 
-	},
+	componentWillUnmount() {
+		BackHandler.removeEventListener('hardwareBackPress', this.props.navigation.state.params.onBackAndroid);
+	};
 
-	onSubmit() {
-
-	},
+	onAppExit() {
+		BackHandler.exitApp();
+	};
 
 	render() {
 		return (
@@ -43,22 +49,14 @@ const AuthingPage = React.createClass({
 					/>
 				</List.Item>
 				<List.Item>
-					<Card full>
-						<Card.Header
-							title="店铺名称"
-							thumb="https://cloud.githubusercontent.com/assets/1698185/18039916/f025c090-6dd9-11e6-9d86-a4d48a1bf049.png"
-						/>
-						<Card.Body>
-							地址：仙霞西路
-						</Card.Body>
-					</Card>
+					<LoginOutButton resetLogin={this.props.navigation.state.params.resetLogin}/>
 				</List.Item>
 				<List.Item>
-					<LoginOutButton {...this.props} />
+					<Button type="ghost" onClick={this.onAppExit.bind(this)}>退出应用</Button>
 				</List.Item>
 			</List>
 		);
 	}
-});
+}
 
 export default AuthingPage;

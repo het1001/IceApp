@@ -5,14 +5,12 @@ import React from 'react';
 import {
 	StyleSheet,
 	View,
-	Navigator
+	BackHandler
 } from 'react-native';
 
 import {
 	Toast
 } from 'antd-mobile';
-
-
 
 import WaitingPage from './pages/WaitingPage';
 import LoginPage from './pages/LoginPage';
@@ -22,10 +20,14 @@ import AuthingPage from './pages/AuthingPage';
 import AuthRejectPage from './pages/AuthRejectPage';
 import FreeaePage from './pages/FreeaePage';
 
+import ComDetail from './compontent/home/ComDetail';
+
 import AMapLocation from 'react-native-amap-location';
 
 import DeviceInfoUtil from './util/DeviceInfoUtil';
 import UserAction from './action/UserAction';
+
+import { StackNavigator } from 'react-navigation';
 
 const styles = StyleSheet.create({
 	root: {
@@ -37,30 +39,31 @@ const styles = StyleSheet.create({
  * The first arg is the options object for customization (it can also be null or omitted for default options),
  * The second arg is the callback which sends object: response (more info below in README)
  */
-const IceApp = React.createClass({
-	getInitialState() {
-		return {
+class IceApp extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			phone: '',
 			userState: ''
-		}
-	},
+		};
+	};
 
 	componentWillMount() {
 		// 1. 获取手机本地地址（异步去做这个事情）
 		this.getLocation();
 
-		// 2. 2秒后初始化登录（2秒是广告页显示时间）
-		setTimeout(this.initLogin, 2000);
-	},
+		// 2. 1.5秒后初始化登录（1.5秒是广告页显示时间）
+		setTimeout(this.initLogin.bind(this), 1500);
+	};
 
-	unlisten: null,
+	unlisten: null;
 
 	getLocation() {
 		let i = 0;
 		this.unlisten = AMapLocation.addEventListener((data) => {
 			i++;
 			if (data && data.longitude) {
-				global.localInfo.position = data;
+				localInfo.position = data;
 				AMapLocation.stopLocation();
 				this.unlisten.remove();
 			} else {
@@ -76,7 +79,7 @@ const IceApp = React.createClass({
 			killProcess: true,
 			needDetail: true,
 		});
-	},
+	};
 
 	initLogin() {
 		/** 缓存里取用户手机号
@@ -86,15 +89,19 @@ const IceApp = React.createClass({
 		storage.load({
 			key: 'user',
 		}).then(ret => {
-			global.localInfo.phone = ret.userName;
-
-			this.onLogin(ret.userName, ret.passWord, true);
-		}).catch(err => {
-			this.setState({
-				userState: 'NOT_LOGIN',
-			});
+			localInfo.phone = ret.userName;
+			this.onLogin(ret.userName, ret.passWord);
+		}).catch(() => {
+			this.toLoginPage();
 		});
-	},
+	};
+
+	toLoginPage() {
+		this.props.navigation.navigate('LoginPage', {
+			onLogin: this.onLogin.bind(this),
+			onBackAndroid: this.onBackAndroid
+		});
+	};
 
 	onLogin(userName, passWord) {
 		UserAction.login({
@@ -106,6 +113,7 @@ const IceApp = React.createClass({
 			},
 			success: (res) => {
 				if (res && res.success) {
+					localInfo.phone = userName;
 					storage.save({
 						key: 'user',
 						rawData: {
@@ -115,98 +123,154 @@ const IceApp = React.createClass({
 						},
 					});
 
-					this.setState({
+					switch (res.data.state) {
+						case 'PASSED':
+							this.props.navigation.navigate('CompleteShopPage', {
+								resetLogin: this.resetLogin.bind(this),
+								onBackAndroid: this.onBackAndroid
+							});
+							break;
+						case 'AUDITING':
+							this.props.navigation.navigate('AuthingPage', {
+								resetLogin: this.resetLogin.bind(this),
+								onBackAndroid: this.onBackAndroid
+							});
+							break;
+						case 'AUDIT_NO':
+							this.props.navigation.navigate('AuthRejectPage', {
+								resetLogin: this.resetLogin.bind(this)
+							});
+							break;
+						case 'FREEAE':
+							this.props.navigation.navigate('FreeaePage', {
+								resetLogin: this.resetLogin.bind(this)
+							});
+							break;
+						default:
+							this.props.navigation.navigate('MainPage', {
+								resetLogin: this.resetLogin.bind(this),
+								onBackAndroid: this.onBackAndroid
+							});
+							break;
+					}
+
+					/*this.setState({
 						userState: res.data.state,
-					});
+					});*/
 				} else {
 					this.setState({
 						userState: 'NOT_LOGIN',
 					});
 
 					switch (res.resultCode) {
+						case 'USER_NOT_EXIST':
+							Toast.fail("用户名不存在，请先注册", 2, null, false);
+							break;
+						case 'USER_NOT_COMPLEAT_REGISTER':
+							Toast.fail("用户还未完成注册", 2, null, false);
+							break;
+						case 'USER_NOT_SET_PASSWORD':
+							Toast.fail("用户还未设置密码，请在注册中设置", 2, null, false);
+							break;
 						case 'PWD_CHECK_FAILED':
-							Toast.fail("密码重置，请重新登录", Toast.SHORT);
+							Toast.fail("密码错误，请重试", 2, null, false);
 							break;
 						default:
-							Toast.fail("系统错误", Toast.SHORT);
+							Toast.fail("系统错误", 2, null, false);
 					}
 				}
 			}
 		});
-	},
+	};
+
+	onBackAndroid = () => {
+		if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+			BackHandler.exitApp();
+			return true;
+		}
+
+		this.lastBackPressed = Date.now();
+		Toast.show("再按一次退出应用", 2, null, false);
+		return true;
+	};
 
 	resetLogin() {
-		this.setState({
-			userState: 'NOT_LOGIN'
-		});
-	},
+		this.toLoginPage();
+	};
 
 	render() {
 		return (
 			<View style={styles.root}>
-				{
-					(() => {
-						// 初始化的时候，显示等待页面（广告）
-						if (!this.state.userState) {
-							return <WaitingPage />;
-						} else if (this.state.userState === 'NOT_LOGIN') {
-							return <Navigator
-								initialRoute={{
-									id: 'main',
-									component: LoginPage,
-									params: {
-										position: this.state.position,
-										onLogin: this.onLogin,
-										resetLogin: this.resetLogin
-									}
-								}}
-								renderScene={(route, navigator) => {
-									const Com = route.component;
-									return <Com {...route.params} navigator={navigator}/>;
-								}}
-							/>;
-						} else if (this.state.userState === 'PASSED') {
-							return <CompleteShopPage resetLogin={this.resetLogin} phone={this.state.phone}/>;
-						} else if (this.state.userState === 'AUDITING') {
-							return <AuthingPage resetLogin={this.resetLogin}/>;
-						} else if (this.state.userState === 'AUDIT_NO') {
-							return <Navigator
-								initialRoute={{
-									id: "authRejectPage",
-									component: AuthRejectPage,
-									params: {
-										phone: this.state.phone,
-										resetLogin: this.resetLogin
-									}
-								}}
-								renderScene={(route, navigator) => {
-									const Com = route.component;
-									return <Com {...route.params} navigator={navigator}/>;
-								}}
-							/>;
-
-						} else if (this.state.userState === 'FREEAE') {
-							return <FreeaePage resetLogin={this.resetLogin}/>;
-						} else {
-							return <Navigator
-								initialRoute={{
-									id: 'MainPage',
-									component: MainPage,
-									params: {
-										resetLogin: this.resetLogin
-									}
-								}}
-								renderScene={(route, navigator) => {
-									const Com = route.component;
-									return <Com {...route.params} navigator={navigator}/>;
-								}}
-							/>;
-						}
-					})()
-				}
+				<WaitingPage />
 			</View>
 		);
 	}
-});
+}
 
-export default IceApp;
+import RegisterPhone from './compontent/register/RegisterPhone';
+import RegisterPassWord from './compontent/register/RegisterPassWord';
+
+export default StackNavigator({
+	IceApp: {
+		screen: IceApp,
+		navigationOptions: {
+			header: null
+		}
+	},
+	LoginPage: {
+		screen: LoginPage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	RegisterPhone: {
+		screen: RegisterPhone,
+		navigationOptions: {
+			headerTitle: '手机验证'
+		}
+	},
+	RegisterPassWord: {
+		screen: RegisterPassWord,
+		navigationOptions: {
+			headerTitle: '设置密码'
+		}
+	},
+	CompleteShopPage: {
+		screen: CompleteShopPage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	AuthingPage: {
+		screen: AuthingPage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	AuthRejectPage: {
+		screen: AuthRejectPage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	FreeaePage: {
+		screen: FreeaePage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	MainPage: {
+		screen: MainPage,
+		navigationOptions: {
+			header: null
+		}
+	},
+	ComDetail: {
+		screen: ComDetail,
+		navigationOptions: {
+			headerTitle: '商品详情'
+		}
+	}
+}, {
+	initialRouteName: 'IceApp',
+});

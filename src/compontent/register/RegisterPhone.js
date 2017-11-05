@@ -4,7 +4,7 @@
 import React from 'react';
 import {
 	PropTypes,
-	BackAndroid,
+	BackHandler
 } from 'react-native';
 
 import {
@@ -12,104 +12,108 @@ import {
 	InputItem,
 	Button,
 	Toast,
+	Modal
 } from 'antd-mobile';
 
-import HeaderNoBack from '../HeaderNoBack';
 import UserAction from '../../action/UserAction';
 import RegisterPassWord from './RegisterPassWord';
 import DeviceInfoUtil from '../../util/DeviceInfoUtil';
 
-const RegisterPhone = React.createClass({
-	propTypes: {
-		//title: PropTypes.string.isRequired,
-	},
-	getInitialState() {
-		return {
+class RegisterPhone extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			phone: '',
 			authCode: '',
 			disabled: false,
 			buttonText: '获取验证码'
 		};
-	},
+	};
+
 	componentWillMount() {
-
-	},
-
-	componentDidMount() {
-		BackAndroid.addEventListener('hardwareBackPress', this.handleBack)
-	},
+		BackHandler.addEventListener('hardwareBackPress', this.onBackAndroidNotExit.bind(this));
+	};
 
 	componentWillUnmount() {
-		BackAndroid.removeEventListener('hardwareBackPress', this.handleBack)
-	},
+		BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroidNotExit.bind(this));
+	};
+
+	onBackAndroidNotExit() {
+		this.props.navigation.goBack();
+		return true;
+	};
 
 	onNext() {
 		if (!this.state.phone) {
-			Toast.show("请输入手机号", Toast.SHORT);
+			Toast.show("请输入手机号", 2, null, false);
 			return;
 		}
 
 		const phone = this.state.phone.replace(/ /g, "");
 		if (!PHONE_REG.test(phone)) {
-			Toast.show("请输入有效手机号", Toast.SHORT);
+			Toast.show("请输入有效手机号", 2, null, false);
 			return;
 		}
 
 		if (!this.state.authCode) {
-			Toast.show("请输入验证码", Toast.SHORT);
+			Toast.show("请输入验证码", 2, null, false);
 			return;
 		} else if (this.state.authCode.length != 6) {
-			Toast.show("验证码格式错误", Toast.SHORT);
+			Toast.show("验证码格式错误", 2, null, false);
 			return;
 		}
+
+		const { action } = this.props.navigation.state.params;
 
 		UserAction.authCode({
 			params: {
 				phone,
 				authCode: this.state.authCode,
-				type: this.props.action ? 'NORMAL' : '',
+				type: action ? 'NORMAL' : '',
 			},
 			success: (data) => {
 				if (data && data.success) {
-					this.props.navigator.push({
-						id: 'setPassWord',
-						component: RegisterPassWord,
-						params: {
-							phone,
-							action: this.props.action
-						}
+					this.props.navigation.navigate('RegisterPassWord', {
+						phone,
+						action,
+						onLogin: this.props.navigation.state.params.onLogin
 					});
 				} else {
 					switch (data.resultCode) {
 						case 'USER_AUTHED':
-							Toast.fail("已验证通过，请直接登录");
+							Modal.alert("提示", "该手机号已注册，请直接登录", [{ text: '确认', onPress: () => {
+								this.props.navigation.navigate('LoginPage', {
+									phone,
+									onLogin: this.props.navigation.state.params.onLogin
+								});
+							}}]);
 							break;
 						case 'USER_NOT_EXIST':
-							Toast.fail("用户不存在");
+							Toast.fail("用户不存在", 2, null, false);
 							break;
 						case 'AUTH_FAILED':
-							Toast.fail("验证失败");
+							Toast.fail("验证码错误", 2, null, false);
 							break;
 						default:
-							Toast.fail("系统错误");
+							Toast.fail("系统错误", 2, null, false);
 					}
 				}
 			},
 			error: (error) => {
-				Toast.show(error, Toast.LONG);
+				Toast.show(error, 2, null, false);
 			}
 		});
-	},
+	};
 
 	getAuthCode() {
 		if (!this.state.phone) {
-			Toast.show("请输入手机号", Toast.SHORT);
+			Toast.show("请输入手机号", 2, null, false);
 			return;
 		}
 
 		const phone = this.state.phone.replace(/ /g, "");
 		if (!PHONE_REG.test(phone)) {
-			Toast.show("请输入有效手机号", Toast.SHORT);
+			Toast.show("请输入有效手机号", 2, null, false);
 			return;
 		}
 
@@ -118,7 +122,7 @@ const RegisterPhone = React.createClass({
 		});
 
 		let getAuthCode = UserAction.getInitAuthCode;
-		if (this.props.action) {
+		if (this.props.navigation.state.params.action) {
 			getAuthCode = UserAction.getAuthCode;
 		}
 
@@ -153,42 +157,40 @@ const RegisterPhone = React.createClass({
 					});
 
 					switch (data.resultCode) {
+						case 'USER_NOT_EXIST':
+							Toast.fail("该账号还未注册", 2, null, false);
+							break;
 						case 'USER_AUTHED':
-							Toast.fail("已验证通过，请直接登录");
+							Modal.alert("提示", "该手机号已注册，请直接登录", [{ text: '确认', onPress: () => {
+								this.props.navigation.navigate('LoginPage', {
+									phone,
+									onLogin: this.props.navigation.state.params.onLogin
+								});
+							}}]);
 							break;
 						case 'AUTH_CODE_SEND_TOO_FAST':
-							Toast.fail("验证码已发送，请稍后再试");
+							Toast.fail("验证码已发送，请稍后再试", 2, null, false);
 							break;
 						case 'AUTH_CODE_SEND_TIMES_OUT':
-							Toast.fail("今天您已经触发了多次验证码，如果均未收到短信，请联系管理员");
+							Toast.fail("今天您已经触发了多次验证码，如果均未收到短信，请联系管理员", 2, null, false);
 							break;
 						case 'AUTH_CODE_SEND_FAILED':
-							Toast.fail("验证码发送失败");
+							Toast.fail("验证码发送失败", 2, null, false);
 							break;
 						default:
-							Toast.fail("系统错误");
+							Toast.fail("系统错误", 2, null, false);
 					}
 				}
 			},
 			error: (error) => {
-				Toast.show(error, Toast.LONG);
+				Toast.show(error, 2, null, false);
 			}
 		});
-	},
-
-	handleBack() {
-		if (this.props.navigator && this.props.navigator.getCurrentRoutes().length > 1) {
-			this.props.navigator.pop();
-			return true;
-		}
-
-		return false;
-	},
+	};
 
 	render() {
 		return (
 			<List>
-				<HeaderNoBack text="白云冷饮"/>
 				<List.Item>
 					<InputItem
 						onChange={(phone) => this.setState({phone})}
@@ -200,7 +202,7 @@ const RegisterPhone = React.createClass({
 				</List.Item>
 				<List.Item
 					extra={<Button type="ghost" style={{width: 100}} disabled={this.state.disabled} inline size="small"
-												 onClick={this.getAuthCode}>{this.state.buttonText}</Button>}
+												 onClick={this.getAuthCode.bind(this)}>{this.state.buttonText}</Button>}
 					multipleLine
 				>
 					<InputItem
@@ -211,10 +213,10 @@ const RegisterPhone = React.createClass({
 						placeholder="请输入验证码"
 					>验证码</InputItem>
 				</List.Item>
-				<Button onClick={this.onNext}>下一步</Button>
+				<Button onClick={this.onNext.bind(this)}>下一步</Button>
 			</List>
 		);
 	}
-});
+}
 
 export default RegisterPhone;

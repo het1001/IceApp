@@ -10,13 +10,11 @@ import {
 	Button
 } from 'antd-mobile';
 
-const LoginOutButton = React.createClass({
-	propTypes: {
-		//title: PropTypes.string.isRequired,
-	},
-	getInitialState() {
-		return {};
-	},
+class LoginOutButton extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+	};
 
 	onLoginOut() {
 		storage.remove({
@@ -24,13 +22,13 @@ const LoginOutButton = React.createClass({
 		});
 
 		this.props.resetLogin();
-	},
+	};
 
 	render() {
 		return (
-			<Button type="warning" onClick={this.onLoginOut}>退出登录</Button>
+			<Button type="warning" onClick={this.onLoginOut.bind(this)}>退出登录</Button>
 		);
 	}
-});
+}
 
 export default LoginOutButton;

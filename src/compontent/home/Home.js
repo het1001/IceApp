@@ -7,19 +7,20 @@ import {
 	View,
 	Text,
 	Image,
-	TouchableNativeFeedback
+	TouchableNativeFeedback,
+	RefreshControl
 } from 'react-native';
 
 import {
-	RefreshControl,
 	Modal,
 	ListView
 } from 'antd-mobile';
 
-import HeaderNoBack from '../HeaderNoBack';
 import StyleSheet from 'StyleSheet';
 import CommodityAction from '../../action/CommodityAction';
 import PromotionAction from '../../action/PromotionAction';
+
+import HeaderNoBack from '../HeaderNoBack';
 
 import ComDetail from './ComDetail';
 
@@ -41,30 +42,31 @@ var styles = StyleSheet.create({
 		width: 100,
 		height: 100,
 		// 边距
-		marginLeft: 10,
+		marginLeft: 14,
 		margin: 10
 	},
 
 	subItemStyle: {
 		// 对齐方式
+		marginLeft: 6,
 		justifyContent: 'space-around'
 	}
 });
 
-const Home = React.createClass({
-	propTypes: {
-		//title: PropTypes.string.isRequired,
-	},
-	getInitialState() {
+class Home extends React.Component {
+	constructor(props) {
+		super(props);
+
 		var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-		return {
+		this.state = {
 			dataSource: ds,
 			headloading: false
 		};
-	},
+	};
+
 	componentWillMount() {
 		this.fetch();
-	},
+	};
 
 	componentDidMount() {
 		PromotionAction.queryCurrent({
@@ -76,10 +78,11 @@ const Home = React.createClass({
 				}
 			}
 		});
-	},
+	};
 
-	componentWillUnmount() {
-	},
+	reload() {
+		this.fetch();
+	};
 
 	fetch() {
 		CommodityAction.queryAllOnline({
@@ -94,7 +97,7 @@ const Home = React.createClass({
 			},
 			error: () => {}
 		});
-	},
+	};
 
 	renderRow(rowData, sectionID, rowID) {
 		return <TouchableNativeFeedback
@@ -106,23 +109,21 @@ const Home = React.createClass({
 					source={{uri: 'http://ice2016.oss-cn-hangzhou.aliyuncs.com/' + rowData.imgKey + '?x-oss-process=style/app-view'}}
 					style={styles.imageStyle}/>
 				<View style={styles.subItemStyle}>
-					<Text style={{marginTop: 5, fontSize: 17}}>{rowData.name}</Text>
-					<Text style={{marginBottom: 5, fontSize: 13, color: 'green'}}>简介</Text>
+					<Text style={{marginTop: 5, fontSize: 18, color: 'black'}}>{rowData.name}</Text>
+					<Text style={{marginTop: 15, marginBottom: 5, fontSize: 13, color: 'gray'}}>规格：{rowData.standardPice} 支/件</Text>
+					<Text style={{marginBottom: 3, fontSize: 13, color: 'gray'}}>零售价格：<Text style={{fontSize: 14, color: 'green'}}>{rowData.retailPriceBr} 元/支</Text></Text>
+					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>价格：<Text style={{fontSize: 15, color: 'red'}}>￥ {rowData.pricePi}</Text></Text>
 				</View>
 			</View>
 		</TouchableNativeFeedback>;
-	},
+	};
 
 	onComItemClick(rowData) {
 		// this.props.n
-		this.props.navigator.push({
-			id: 'ComDetail',
-			component: ComDetail,
-			params: {
-				id: rowData.id
-			}
+		this.props.navigation.navigate('ComDetail', {
+			data: rowData
 		});
-	},
+	};
 
 	refreshData() {
 		this.setState({
@@ -130,32 +131,27 @@ const Home = React.createClass({
 		});
 
 		this.fetch();
-	},
+	};
 
 	render() {
 		return (
-			<View style={{flex: 1}}>
-				<HeaderNoBack text="白云冷饮"/>
-				<View style={{flex: 1}} >
-					<ListView
-						refreshControl={
-							<RefreshControl
-								onRefresh={() => this.refreshData()}
-								refreshing={this.state.headloading}
-								tintColor="#ff0000"
-								title="加载中..."
-								titleColor="#00ff00"
-								colors={['#ff0000', '#00ff00', '#0000ff']}
-								progressBackgroundColor="#ffff00"
-							/>
-						}
-						dataSource={this.state.dataSource}
-						renderRow={this.renderRow}
-					/>
-				</View>
+			<View style={{flex: 1}} >
+				<HeaderNoBack />
+				<ListView
+					refreshControl={
+						<RefreshControl
+							onRefresh={() => this.refreshData()}
+							refreshing={this.state.headloading}
+							colors={['#4a9df8']}
+							progressBackgroundColor="#ffffff"
+						/>
+					}
+					dataSource={this.state.dataSource}
+					renderRow={this.renderRow.bind(this)}
+				/>
 			</View>
 		);
 	}
-});
+}
 
 export default Home;

@@ -13,4 +13,13 @@ export default CommodityAction = {
 			error
 		});
 	},
+
+	queryPicByComId: ({params, success, error}) => {
+		AjaxUtil.post({
+			url: '/ice/app/commodity/queryPicByComId.json',
+			params,
+			success,
+			error
+		});
+	},
 }

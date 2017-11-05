@@ -8,17 +8,17 @@ import {
 } from 'react-native';
 import StyleSheet from 'StyleSheet';
 
-const HeaderNoBack = React.createClass({
+class HeaderNoBack extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
 				<View style={styles.textview}>
-					<Text style={styles.textstyle}>{this.props.text || "标题头"}</Text>
+					<Text style={styles.textstyle}>{this.props.text || "白云冷饮"}</Text>
 				</View>
 			</View>
 		);
 	}
-});
+}
 
 const styles = StyleSheet.create({
 	container: {

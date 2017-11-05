@@ -2,11 +2,10 @@
  * Created by houenteng on 17-2-7.
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import {
-	StyleSheet,
 	PropTypes,
-	BackAndroid,
+	BackHandler
 } from 'react-native';
 
 import {
@@ -16,80 +15,88 @@ import {
 	Toast,
 } from 'antd-mobile';
 
-import HeaderNoBack from '../HeaderNoBack';
 import UserAction from '../../action/UserAction';
 import LoginPage from '../../pages/LoginPage';
 
-const RegisterPassWord = React.createClass({
-	propTypes: {
-		//title: PropTypes.string.isRequired,
-	},
-	getInitialState() {
-		return {
+class RegisterPassWord extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			passWord: '',
 			rePassWord: '',
 		};
-	},
+	};
+
+	componentWillMount() {
+		BackHandler.addEventListener('hardwareBackPress', this.onBackAndroidNotExit.bind(this));
+	};
+
+	componentWillUnmount() {
+		BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroidNotExit.bind(this));
+	};
+
+	onBackAndroidNotExit() {
+		this.props.navigation.goBack();
+		return true;
+	};
 
 	onNext() {
 		if (!this.state.passWord) {
-			Toast.show("请输入密码", Toast.SHORT);
+			Toast.show("请输入密码", 2, null, false);
 			return;
 		} else if (!this.state.rePassWord) {
-			Toast.show("请重复输入密码", Toast.SHORT);
+			Toast.show("请重复输入密码", 2, null, false);
 			return;
 		} else if (this.state.passWord.length < 6) {
-			Toast.show("密码必须大于等于6位", Toast.SHORT);
+			Toast.show("密码必须大于等于6位", 2, null, false);
 			return;
 		} else if (this.state.passWord !== this.state.rePassWord) {
-			Toast.show("密码不一致", Toast.SHORT);
+			Toast.show("密码不一致", 2, null, false);
 			return;
 		}
 
+		const {phone, action} = this.props.navigation.state.params;
+
 		let setPassWord = UserAction.setPassWord;
-		if (this.props.action) {
+		if (action) {
 			setPassWord = UserAction.reSetPassWord;
 		}
 
 		setPassWord({
 			params: {
-				phone: this.props.phone,
+				phone,
 				passWord: this.state.passWord,
-				type: this.props.action ? 'NORMAL' : '',
+				type: action ? 'NORMAL' : '',
 			},
 			success: (data) => {
 				if (data && data.success) {
-					Toast.success("设置成功，请登录", Toast.SHORT);
-					this.props.navigator.push({
-						id: 'main',
-						component: LoginPage,
-						params: {
-							phone: this.props.phone,
-						}
+					Toast.success("设置成功，请登录", 2, null, false);
+					this.props.navigation.navigate('LoginPage', {
+						phone,
+						onLogin: this.props.navigation.state.params.onLogin
 					});
 				} else {
 					switch (data.resultCode) {
 						case 'USER_NOT_EXIST':
-							Toast.fail("用户不存在", Toast.SHORT);
+							Toast.fail("用户不存在", 2, null, false);
 							break;
 						case 'USER_NOT_AUTHED':
-							Toast.fail("用户还没验证通过", Toast.SHORT);
+							Toast.fail("用户还没验证通过", 2, null, false);
 							break;
 						default:
-							Toast.fail("系统错误", Toast.SHORT);
+							Toast.fail("系统错误", 2, null, false);
 					}
 				}
 			},
 			error: (error) => {
-				Toast.show(error, Toast.LONG);
+				Toast.show(error, 2, null, false);
 			}
 		});
-	},
+	};
 
 	render() {
 		return (
 			<List>
-				<HeaderNoBack text="白云冷饮"/>
 				<List.Item>
 					<InputItem
 						onChange={(passWord) => this.setState({passWord})}
@@ -106,10 +113,10 @@ const RegisterPassWord = React.createClass({
 						placeholder="请重复密码"
 					>重复密码</InputItem>
 				</List.Item>
-				<Button onClick={this.onNext}>下一步</Button>
+				<Button onClick={this.onNext.bind(this)}>下一步</Button>
 			</List>
 		);
 	}
-});
+}
 
 export default RegisterPassWord;

@@ -1,11 +1,12 @@
 /**
  * Created by houenteng on 17-2-2.
  */
-import React, {Component} from 'react';
+import React from 'react';
 import {
 	StyleSheet,
 	PropTypes,
 	Text,
+	BackHandler
 } from 'react-native';
 
 import {
@@ -15,19 +16,8 @@ import {
 	Toast,
 } from 'antd-mobile';
 
-import HeaderNoBack from '../compontent/HeaderNoBack';
-
 import RegisterPhone from '../compontent/register/RegisterPhone';
-import MainPage from './MainPage';
-
-import DeviceInfoUtil from '../util/DeviceInfoUtil';
-
-import UserAction from '../action/UserAction';
-
-import CompleteShopPage from './CompleteShopPage';
-import AuthingPage from './AuthingPage';
-import AuthRejectPage from './AuthRejectPage';
-import FreeaePage from './FreeaePage';
+import HeaderNoBack from '../compontent/HeaderNoBack';
 
 const styles = StyleSheet.create({
 	root: {
@@ -45,134 +35,68 @@ const styles = StyleSheet.create({
  * The second arg is the callback which sends object: response (more info below in README)
  */
 
-const LoginPage = React.createClass({
-	propTypes: {
-		//title: PropTypes.string.isRequired,
-	},
-	getInitialState() {
-		let phone = this.props.phone;
+class LoginPage extends React.Component {
+	constructor(props) {
+		super(props);
+
+		let phone = props.navigation && props.navigation.state && props.navigation.state.params ? props.navigation.state.params.phone : '';
 		if (phone) {
 			const phoneArr = phone.split("");
 			phoneArr[2] += " ";
 			phoneArr[6] += " ";
 			phone = phoneArr.join("");
 		}
-
-		return {
+		this.state = {
 			phone: phone || '',
 			pwd: '',
 		};
-	},
+	};
+
+	componentWillMount() {
+		BackHandler.addEventListener('hardwareBackPress', this.props.navigation.state.params.onBackAndroid);
+	};
+
+	componentWillUnmount() {
+		BackHandler.removeEventListener('hardwareBackPress', this.props.navigation.state.params.onBackAndroid);
+	};
 
 	onSubmit() {
 		if (!this.state.phone) {
-			Toast.show("请输入手机号", Toast.SHORT);
+			Toast.show("请输入手机号", 2, null, false);
 			return;
 		}
 
 		if (!this.state.pwd) {
-			Toast.show("请输入密码", Toast.SHORT);
+			Toast.show("请输入密码", 2, null, false);
 			return;
 		}
 
 		const phone = this.state.phone.replace(/ /g, "");
 		if (!PHONE_REG.test(phone)) {
-			Toast.show("请输入有效手机号", Toast.SHORT);
+			Toast.show("请输入有效手机号", 2, null, false);
 			return;
 		}
 
-		UserAction.login({
-			params: {
-				userName: phone,
-				passWord: this.state.pwd,
-				position: JSON.stringify(this.props.position),
-				device: JSON.stringify(DeviceInfoUtil.getDeviceInfo()),
-			},
-			success: (res) => {
-				console.log(res);
-
-				if (res && res.success) {
-					storage.save({
-						key: 'user',  // 注意:请不要在key中使用_下划线符号!
-						rawData: {
-							userName: phone,
-							passWord: this.state.pwd,
-							token: res.data.token
-						},
-
-						// 如果不指定过期时间，则会使用defaultExpires参数
-						// 如果设为null，则永不过期
-						// expires: 1000 * 3600*/
-					});
-
-					let component = {
-						id: 'mainPage',
-						component: MainPage,
-						params: {
-							resetLogin: this.resetLogin
-						}
-					};
-
-					if (res.data.state === 'PASSED') {
-						component.id = 'completeShopPage';
-						component.component = CompleteShopPage;
-					} else if (res.data.state === 'AUDITING') {
-						component.id = 'authingPage';
-						component.component = AuthingPage;
-					} else if (res.data.state === 'AUDIT_NO') {
-						component.id = 'authRejectPage';
-						component.component = AuthRejectPage;
-						component.params.phone = phone;
-					} else if (res.data.state === 'FREEAE') {
-						component.id = 'freeaePage';
-						component.component = FreeaePage;
-					}
-
-					this.props.navigator.push(component);
-				} else {
-					switch (res.resultCode) {
-						case 'USER_NOT_EXIST':
-							Toast.fail("该账户不存在，请注册", Toast.SHORT);
-							break;
-						case 'PWD_CHECK_FAILED':
-							Toast.fail("您输入的账号或密码错误", Toast.SHORT);
-							break;
-						default:
-							Toast.fail("系统错误", Toast.SHORT);
-					}
-				}
-			},
-			error: (error) => {
-				console.warn(error);
-			}
-		});
-	},
-
-	resetLogin() {
-		this.props.navigator.pop();
-	},
+		this.props.navigation.state.params.onLogin(phone, this.state.pwd);
+	};
 
 	goRegist() {
-		this.props.navigator.push({
-			id: 'registerPhone',
-			component: RegisterPhone
+		this.props.navigation.navigate('RegisterPhone', {
+			onLogin: this.props.navigation.state.params.onLogin
 		});
-	},
+	};
 
 	goForgetPwd() {
-		this.props.navigator.push({
-			id: 'registerPhone',
-			component: RegisterPhone,
-			params: {
-				action: 'FORGETPW'
-			}
+		this.props.navigation.navigate('RegisterPhone', {
+			onLogin: this.props.navigation.state.params.onLogin,
+			action: 'FORGETPW'
 		});
-	},
+	};
 
 	render() {
 		return (
 			<List>
-				<HeaderNoBack text="白云冷饮"/>
+				<HeaderNoBack text="白云冷饮" />
 				<InputItem
 					onChange={(phone) => this.setState({phone})}
 					value={this.state.phone}
@@ -187,15 +111,15 @@ const LoginPage = React.createClass({
 					maxLength={32}
 					placeholder="请输入密码"
 				>密码</InputItem>
-				<Button type="primary" onClick={this.onSubmit}>登录</Button>
+				<Button type="primary" onClick={this.onSubmit.bind(this)}>登录</Button>
 				<Text style={{marginTop: 5}}>
-					<Text style={styles.font} onPress={this.goRegist}>新用户注册</Text>
-					<Text style={{textAlign: 'right'}}> </Text>
-					<Text style={styles.font} onPress={this.goForgetPwd}>忘记密码？</Text>
+					<Text style={styles.font} onPress={this.goRegist.bind(this)}>新用户注册</Text>
+					<Text style={{textAlign: 'right'}}>    </Text>
+					<Text style={styles.font} onPress={this.goForgetPwd.bind(this)}>忘记密码？</Text>
 				</Text>
 			</List>
 		);
 	}
-});
+}
 
 export default LoginPage;
