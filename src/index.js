@@ -5,7 +5,7 @@
 if (__DEV__) {
 	global.__REMOTE_URL__ = 'http://192.168.1.5:8080';
 } else {
-	global.__REMOTE_URL__ = 'http://192.168.1.5:8080';
+	global.__REMOTE_URL__ = 'http://123.57.211.165';
 }
 
 import {AppRegistry} from 'react-native';

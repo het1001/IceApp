@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 
 import {
-	Button
+	Button,
+	Modal
 } from 'antd-mobile';
 
 class LoginOutButton extends React.Component {
@@ -26,7 +27,12 @@ class LoginOutButton extends React.Component {
 
 	render() {
 		return (
-			<Button type="warning" onClick={this.onLoginOut.bind(this)}>退出登录</Button>
+			<Button type="warning" onClick={() => {
+				Modal.alert('', '确定要退出吗?', [
+					{ text: '确定', onPress: () => this.onLoginOut.bind(this)()},
+					{ text: '取消', onPress: () => {} }
+				])
+			}}>退出登录</Button>
 		);
 	}
 }

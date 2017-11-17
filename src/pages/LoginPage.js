@@ -6,7 +6,8 @@ import {
 	StyleSheet,
 	PropTypes,
 	Text,
-	BackHandler
+	BackHandler,
+	Keyboard
 } from 'react-native';
 
 import {
@@ -76,6 +77,8 @@ class LoginPage extends React.Component {
 			Toast.show("请输入有效手机号", 2, null, false);
 			return;
 		}
+
+		Keyboard.dismiss();
 
 		this.props.navigation.state.params.onLogin(phone, this.state.pwd);
 	};

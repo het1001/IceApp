@@ -27,6 +27,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import Personal from '../compontent/personal/Personal';
 import Home from '../compontent/home/Home';
 import ShoppingCart from '../compontent/cart/ShoppingCart';
+import Faxian from '../compontent/faxian/Faxian';
 
 const tabbarArray = [{
 	key: 'home',
@@ -92,6 +93,8 @@ class MainPage extends React.Component {
 			return (<Home ref="home" {...this.props} />);
 		} else if (tag === 'cart') {
 			return (<ShoppingCart ref="cart" {...this.props} />);
+		} else if (tag === 'faxian') {
+			return (<Faxian ref="faxian" {...this.props} />);
 		} else {
 			return (<View style={{flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}>
 				<Text style={{fontSize: 22}}>功能开发中。。。敬请期待！！！</Text>

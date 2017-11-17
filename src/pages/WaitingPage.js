@@ -14,7 +14,7 @@ class WaitingPage extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			imgKey: '3962ff6e-3358-4382-912f-714409c69150.jpg'
+			imgKey: 'd031688e-bcb1-4242-b107-9951802a007e.jpg'
 		};
 	};
 

@@ -10,6 +10,7 @@ import {
 
 import {
 	List,
+	WhiteSpace
 } from 'antd-mobile';
 
 import HeaderNoBack from '../HeaderNoBack';
@@ -30,6 +31,12 @@ class Personal extends React.Component {
 						<Text style={{fontSize: 22}}>账号 {localInfo.phone}</Text>
 					</View>
 				</List.Item>
+				<List.Item arrow="horizontal" onClick={() => {
+					this.props.navigation.navigate('OrderList', {});
+				}}>
+					我的订单
+				</List.Item>
+				<WhiteSpace size="lg" />
 				<List.Item>
 					<LoginOutButton resetLogin={this.props.navigation.state.params.resetLogin} />
 				</List.Item>

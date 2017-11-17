@@ -21,6 +21,7 @@ import AuthRejectPage from './pages/AuthRejectPage';
 import FreeaePage from './pages/FreeaePage';
 
 import ComDetail from './compontent/home/ComDetail';
+import OrderList from './compontent/personal/OrderList';
 
 import AMapLocation from 'react-native-amap-location';
 
@@ -269,6 +270,12 @@ export default StackNavigator({
 		screen: ComDetail,
 		navigationOptions: {
 			headerTitle: '商品详情'
+		}
+	},
+	OrderList: {
+		screen: OrderList,
+		navigationOptions: {
+			headerTitle: '我的订单'
 		}
 	}
 }, {

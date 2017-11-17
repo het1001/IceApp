@@ -43,7 +43,8 @@ var styles = StyleSheet.create({
 		height: 100,
 		// 边距
 		marginLeft: 14,
-		margin: 10
+		margin: 10,
+		marginBottom: 15
 	},
 
 	subItemStyle: {
@@ -138,6 +139,7 @@ class Home extends React.Component {
 			<View style={{flex: 1}} >
 				<HeaderNoBack />
 				<ListView
+					style={{paddingBottom: 17}}
 					refreshControl={
 						<RefreshControl
 							onRefresh={() => this.refreshData()}
