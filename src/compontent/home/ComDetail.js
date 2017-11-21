@@ -85,13 +85,15 @@ class ComDetail extends React.Component {
 	};
 
 	onButtonClick() {
-		Popup.show(<PopupComponent {...this.props} callback={() => {this.props.navigation.goBack();}} />,
+		Popup.show(<PopupComponent {...this.props} callback={() => {
+				this.props.navigation.goBack();
+			}}/>,
 			{
 				animationType: 'slide-up',
 				maskClosable: true,
 				onMaskClose: () => {
 				}
-		});
+			});
 	};
 
 	render() {
@@ -118,6 +120,12 @@ class ComDetail extends React.Component {
 							fontSize: 15,
 							color: 'green'
 						}}>{'规格：' + data.standardPice + '支/件'}</Text>
+						<Text style={{
+							marginBottom: 10,
+							marginLeft: 5,
+							fontSize: 15,
+							color: 'gray'
+						}}>{'库存：' + data.total + '件'}</Text>
 						<Text style={{marginBottom: 10, marginLeft: 5, fontSize: 25, color: 'gray'}}>{data.name}</Text>
 						{data.brand ? <Text style={{
 							marginBottom: 10,

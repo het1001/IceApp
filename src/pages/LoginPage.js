@@ -15,10 +15,13 @@ import {
 	InputItem,
 	Button,
 	Toast,
+	Modal
 } from 'antd-mobile';
 
 import RegisterPhone from '../compontent/register/RegisterPhone';
 import HeaderNoBack from '../compontent/HeaderNoBack';
+
+import AppAction from '../action/AppAction';
 
 const styles = StyleSheet.create({
 	root: {

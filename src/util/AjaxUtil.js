@@ -1,6 +1,9 @@
 /**
  * Created by Administrator on 2017/8/20.
  */
+import {
+	Toast
+} from 'antd-mobile';
 
 const AjaxUtil = {
 	post: ({url, params, success, error}) => {
@@ -23,6 +26,8 @@ const AjaxUtil = {
 				}).catch((errors) => {
 					if (error) {
 						error(errors);
+					} else {
+						Toast.fail(errors, 2, null, false);
 					}
 			});
 		});
@@ -43,6 +48,8 @@ const AjaxUtil = {
 			}).catch((errors) => {
 				if (error) {
 					error(errors);
+				} else {
+					Toast.fail(errors, 2, null, false);
 				}
 		});
 	}

@@ -5,11 +5,13 @@ import React from 'react';
 import {
 	StyleSheet,
 	View,
-	BackHandler
+	BackHandler,
+	Linking
 } from 'react-native';
 
 import {
-	Toast
+	Toast,
+	Modal
 } from 'antd-mobile';
 
 import WaitingPage from './pages/WaitingPage';
@@ -27,6 +29,8 @@ import AMapLocation from 'react-native-amap-location';
 
 import DeviceInfoUtil from './util/DeviceInfoUtil';
 import UserAction from './action/UserAction';
+
+import AppAction from './action/AppAction';
 
 import { StackNavigator } from 'react-navigation';
 
@@ -53,8 +57,9 @@ class IceApp extends React.Component {
 		// 1. 获取手机本地地址（异步去做这个事情）
 		this.getLocation();
 
+		setTimeout(this.updateVersion.bind(this), 1500);
+		// setTimeout(this.initLogin.bind(this), 1500);
 		// 2. 1.5秒后初始化登录（1.5秒是广告页显示时间）
-		setTimeout(this.initLogin.bind(this), 1500);
 	};
 
 	unlisten: null;
@@ -94,6 +99,24 @@ class IceApp extends React.Component {
 			this.onLogin(ret.userName, ret.passWord);
 		}).catch(() => {
 			this.toLoginPage();
+		});
+	};
+
+	updateVersion() {
+		AppAction.isUpdate({
+			success: (res) => {
+				if (res.success && res.data) {
+					Modal.alert("版本更新", "为了更好的体验，请及时更新到最新版本", [
+						{ text: '暂时不更新', onPress: () => {
+							this.initLogin();
+						}},
+						{ text: '立即更新', onPress: () => {
+							Linking.openURL("http://123.57.211.165/ice/appAndroid/download").catch(err => {});
+						} }])
+				} else {
+					this.initLogin();
+				}
+			}
 		});
 	};
 
@@ -154,10 +177,6 @@ class IceApp extends React.Component {
 							});
 							break;
 					}
-
-					/*this.setState({
-						userState: res.data.state,
-					});*/
 				} else {
 					this.setState({
 						userState: 'NOT_LOGIN',
