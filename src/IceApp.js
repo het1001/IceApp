@@ -105,13 +105,13 @@ class IceApp extends React.Component {
 	updateVersion() {
 		AppAction.isUpdate({
 			success: (res) => {
-				if (res.success && res.data) {
+				if (res.success) {
 					Modal.alert("版本更新", "为了更好的体验，请及时更新到最新版本", [
 						{ text: '暂时不更新', onPress: () => {
 							this.initLogin();
 						}},
 						{ text: '立即更新', onPress: () => {
-							Linking.openURL("http://123.57.211.165/ice/appAndroid/download").catch(err => {});
+							Linking.openURL("http://ice2016.oss-cn-hangzhou.aliyuncs.com/iceApp" + res.data + ".apk").catch(err => {});
 						} }])
 				} else {
 					this.initLogin();

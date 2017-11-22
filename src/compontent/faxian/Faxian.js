@@ -26,7 +26,7 @@ class Faxian extends React.Component {
 				<List>
 					<HeaderNoBack text="白云冷饮"/>
 					<View style={{backgroundColor: 'white', alignItems: 'center', justifyContent: 'center'}}>
-						<Text style={{fontSize: 18}}>功能开发中。。。敬请期待！！！</Text>
+						<Text style={{fontSize: 18}}>该功能还在设计中。。。敬请期待！！！</Text>
 					</View>
 				</List>
 			</View>
