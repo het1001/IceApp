@@ -60,5 +60,13 @@ export default UserAction = {
 			success,
 			error
 		});
+	},
+	updateVersion: ({params, success, error}) => {
+		AjaxUtil.post({
+			url: '/ice/app/user/updateVersion.json',
+			params,
+			success,
+			error
+		});
 	}
 }

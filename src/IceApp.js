@@ -111,7 +111,15 @@ class IceApp extends React.Component {
 							this.initLogin();
 						}},
 						{ text: '立即更新', onPress: () => {
+							this.initLogin();
 							Linking.openURL("http://ice2016.oss-cn-hangzhou.aliyuncs.com/iceApp" + res.data + ".apk").catch(err => {});
+							UserAction.updateVersion({
+								params: {
+									phone: global.localInfo.phone,
+									version: res.data
+								},
+								success: (res) => { }
+							});
 						} }])
 				} else {
 					this.initLogin();

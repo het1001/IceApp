@@ -114,6 +114,12 @@ class ComDetail extends React.Component {
 					</Carousel>
 					<View>
 						<Text style={{marginTop: 5, marginLeft: 10, fontSize: 37, color: 'red'}}>{'￥ ' + data.pricePi}</Text>
+						{data.promo ? <Text style={{
+							marginBottom: 10,
+							marginLeft: 5,
+							fontSize: 15,
+							color: 'red'
+						}}>{data.promoDes}</Text> : null}
 						<Text style={{
 							marginBottom: 10,
 							marginLeft: 5,
