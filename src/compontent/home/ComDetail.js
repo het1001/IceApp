@@ -20,6 +20,7 @@ import {
 import CommodityAction from '../../action/CommodityAction';
 
 import PopupComponent from './PopupComponent';
+import MoneyView from '../common/MoneyView';
 
 const styles = StyleSheet.create({
 	scrollViewStyle: {
@@ -113,7 +114,7 @@ class ComDetail extends React.Component {
 						}
 					</Carousel>
 					<View>
-						<Text style={{marginTop: 5, marginLeft: 10, fontSize: 37, color: 'red'}}>{'￥ ' + data.pricePi}</Text>
+						<Text style={{marginTop: 5, marginLeft: 10}}><MoneyView number={data.pricePi} />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Text>近周销量<Text>{data.sales}件</Text></Text></Text>
 						{data.promo ? <Text style={{
 							marginBottom: 10,
 							marginLeft: 5,
