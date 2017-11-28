@@ -131,6 +131,12 @@ class ComDetail extends React.Component {
 							marginBottom: 10,
 							marginLeft: 5,
 							fontSize: 15,
+							color: 'green'
+						}}>{'建议零售价：' + data.retailPriceBr + '元/支'}</Text>
+						<Text style={{
+							marginBottom: 10,
+							marginLeft: 5,
+							fontSize: 15,
 							color: 'gray'
 						}}>{'库存：' + data.total + '件'}</Text>
 						<Text style={{marginBottom: 10, marginLeft: 5, fontSize: 25, color: 'gray'}}>{data.name}</Text>

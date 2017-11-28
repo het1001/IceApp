@@ -114,7 +114,7 @@ class Home extends React.Component {
 				<View style={styles.subItemStyle}>
 					<Text style={{marginTop: 5, fontSize: 18, color: 'black'}}>{rowData.name} {rowData.promo ? <Text style={{fontSize: 17, color: 'red'}}>【促销】</Text> : ""}</Text>
 					<Text style={{marginTop: 15, marginBottom: 5, fontSize: 13, color: 'gray'}}>规格：{rowData.standardPice} 支/件</Text>
-					<Text style={{marginBottom: 3, fontSize: 13, color: 'gray'}}>零售价格：<Text style={{fontSize: 14, color: 'green'}}>{rowData.retailPriceBr} 元/支</Text></Text>
+					<Text style={{marginBottom: 3, fontSize: 13, color: 'gray'}}>建议零售价：<Text style={{fontSize: 14, color: 'green'}}>{rowData.retailPriceBr} 元/支</Text></Text>
 					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>价格：<MoneyView number={rowData.pricePi} size={0.8} />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Text>近周销量<Text>{rowData.sales}件</Text></Text></Text>
 				</View>
 			</View>
