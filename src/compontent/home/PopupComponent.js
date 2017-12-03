@@ -37,6 +37,11 @@ class PopupComponent extends React.Component {
 	};
 
 	insertCart() {
+		if (this.state.stepNumber <= 0) {
+			Toast.fail("数量错误！！！", 2, null, false);
+			return;
+		}
+
 		ShoppingCartAction.create({
 			params: {
 				phone: localInfo.phone,
@@ -73,7 +78,7 @@ class PopupComponent extends React.Component {
 						/>
 					}
 				>
-					数量
+					数量（件）
 				</List.Item>
 				<List.Item>
 					<Button onClick={this.insertCart.bind(this)}>确定</Button>

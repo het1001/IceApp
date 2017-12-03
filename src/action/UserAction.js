@@ -16,7 +16,7 @@ export default UserAction = {
 	getInitAuthCode: ({params, success, error}) => {
 		AjaxUtil.postNt({
 			url: '/ice/app/user/getInitAuthCode.json',
-			params,
+			UserAction,
 			success,
 			error
 		});
@@ -64,6 +64,14 @@ export default UserAction = {
 	updateVersion: ({params, success, error}) => {
 		AjaxUtil.post({
 			url: '/ice/app/user/updateVersion.json',
+			params,
+			success,
+			error
+		});
+	},
+	getDistrictInfo: ({params, success, error}) => {
+		AjaxUtil.post({
+			url: '/ice/app/user/getDistrictInfo.json',
 			params,
 			success,
 			error

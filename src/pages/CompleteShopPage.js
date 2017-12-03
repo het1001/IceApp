@@ -86,6 +86,7 @@ class CompleteShopPage extends React.Component {
 				freezerModel: '',
 				arkTime: '',
 				districtId: '',
+				standbyPhone: '',
 			}
 		};
 	};
@@ -133,6 +134,10 @@ class CompleteShopPage extends React.Component {
 		} else if (!this.state.form.districtId) {
 			Toast.show("请选择所属片区", 2, null, false);
 			return;
+		}
+
+		if (this.state.form.standbyPhone) {
+			this.state.form.standbyPhone = this.state.form.standbyPhone.replace(/ /g, "");
 		}
 
 		this.setState({
@@ -270,6 +275,12 @@ class CompleteShopPage extends React.Component {
 										className="forss">
 							<List.Item arrow="horizontal">所属片区</List.Item>
 						</Picker>
+						<InputItem
+							onChange={this.onInputFormChange.bind(this, 'standbyPhone')}
+							value={this.state.form.standbyPhone}
+							type="phone"
+							maxLength={13}
+						>备用手机号</InputItem>
 						<List.Item>
 							<Button type="primary" onClick={this.onSubmit.bind(this)}>提交</Button>
 						</List.Item>

@@ -114,7 +114,8 @@ class ComDetail extends React.Component {
 						}
 					</Carousel>
 					<View>
-						<Text style={{marginTop: 5, marginLeft: 10}}><MoneyView number={data.pricePi} />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Text>近周销量<Text>{data.sales}件</Text></Text></Text>
+						<Text style={{marginTop: 5, marginBottom: 10, marginLeft: 10}}><MoneyView number={data.pricePi} />元/件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							每支价格<MoneyView number={data.priceBr} size={0.7} color="gray" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Text>近周销量<Text>{data.sales}件</Text></Text></Text>
 						{data.promo ? <Text style={{
 							marginBottom: 10,
 							marginLeft: 5,
@@ -133,6 +134,8 @@ class ComDetail extends React.Component {
 							fontSize: 15,
 							color: 'green'
 						}}>{'建议零售价：' + data.retailPriceBr + '元/支'}</Text>
+						<Text style={{marginLeft: 5, marginBottom: 10, fontSize: 15,}}>终端利润：<MoneyView number={data.profitPi} size={0.7} />元/件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<MoneyView number={data.priceBr} size={0.7} />元/支</Text>
 						<Text style={{
 							marginBottom: 10,
 							marginLeft: 5,
