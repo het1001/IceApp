@@ -53,6 +53,7 @@ class ComDetail extends React.Component {
 		super(props);
 		this.state = {
 			images: [],
+			imageStyle: {},
 			stepNumber: "1",
 		};
 	};
@@ -66,10 +67,38 @@ class ComDetail extends React.Component {
 			},
 			success: (res) => {
 				if (res && res.success) {
+					const images = res.data.map(item => {
+						Image.getSize('http://ice2016.oss-cn-hangzhou.aliyuncs.com/' + item.picKey,
+							(widthValue, heightValue) => {
+								let width = widthValue;
+								let height = heightValue;
+								if (widthValue >= heightValue) {
+									width = screenWith;
+									height = heightValue * (width / widthValue);
+									this.state.imageStyle[item.picKey] = {
+										width,
+										height,
+										marginTop: (screenHeight * 0.6 - height) / 2,
+										marginBottom: (screenHeight * 0.6 - height) / 2
+									};
+								} else {
+									height = screenHeight * 0.6;
+									width = widthValue * (height / heightValue);
+									this.state.imageStyle[item.picKey] = {
+										width,
+										height,
+										marginLeft: (screenWith - width) / 2
+									};
+								}
+
+								this.setState({});
+						});
+
+						return item.picKey;
+					});
+
 					this.setState({
-						images: res.data.map(item => {
-							return item.picKey;
-						})
+						images,
 					});
 				}
 			},
@@ -103,13 +132,13 @@ class ComDetail extends React.Component {
 		return (
 			<View style={{flex: 1}}>
 				<ScrollView>
-					<Carousel autoplay={false}>
+					<Carousel style={{}} autoplay={false}>
 						{
 							this.state.images.map((item, index) => {
-								return <View key={'viewkey' + index}>
-									<Image key={index} style={{width: screenWith, height: screenHeight - 300}}
-												 source={{uri: 'http://ice2016.oss-cn-hangzhou.aliyuncs.com/' + item}}/>
-								</View>
+								return <Image key={index} style={this.state.imageStyle[item] ?
+									this.state.imageStyle[item] :
+									{width: screenWith, height: screenHeight * 0.7}}
+															source={{uri: 'http://ice2016.oss-cn-hangzhou.aliyuncs.com/' + item}}/>
 							})
 						}
 					</Carousel>

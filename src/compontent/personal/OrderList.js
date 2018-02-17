@@ -27,7 +27,7 @@ import CommonUtil from '../../util/CommonUtil';
 
 const stateMap = {
 	'CREATED': {
-		text: '卖家未确认',
+		text: '即将发货',
 		color: 'green'
 	},
 	'ACCEPT': {
@@ -123,6 +123,21 @@ class OrderList extends React.Component {
 	onCancel(id) {
 		OrderAction.cancel({
 			params: {
+				phone: localInfo.phone,
+				id,
+			},
+			success: (res) => {
+				if (res && res.success) {
+					this.fetch();
+				}
+			},
+		});
+	};
+
+	onComplete(id) {
+		OrderAction.complete({
+			params: {
+				phone: localInfo.phone,
 				id,
 			},
 			success: (res) => {
@@ -149,8 +164,7 @@ class OrderList extends React.Component {
 					})}
 				</List>
 				<View style={{flexDirection: 'row'}}>
-					<View style={{flex:1}}>
-					</View>
+					<Text style={{marginLeft: 20, marginTop: 12, flex:1, color: 'red'}}>{rowData.state === 'CREATED' ? rowData.expDelTimeDes : ''}</Text>
 					<Text style={{margin: 8, flex: 1, textAlign: 'right', marginRight: 15}}>
 						总价 <MoneyView number={rowData.priceTotal} size={0.9} color="black" />
 					</Text>
@@ -160,13 +174,19 @@ class OrderList extends React.Component {
 					</View>
 					<View style={{flex:1}}>
 					</View>
-					<View style={{flex:1, marginTop: 8}}>
-						<Button inline type="ghost" size="small" onClick={() => {
+					<View style={{flex:1, marginTop: 8, flexDirection: 'row'}}>
+						<Button style={{flex:1, marginRight: 18}} inline type="ghost" size="small" onClick={() => {
 							Modal.alert('提示', '确定要取消该订单吗？', [
 								{ text: '取消', onPress: () => {} },
 								{ text: '确定', onPress: () => this.onCancel.bind(this, rowData.id)()}
 							])
 						}}>取消订单</Button>
+						<Button style={{flex: 1, marginRight: 18}} inline type="ghost" size="small" onClick={() => {
+							Modal.alert('提示', '确认收货吗？', [
+								{ text: '取消', onPress: () => {} },
+								{ text: '确定', onPress: () => this.onComplete.bind(this, rowData.id)()}
+							])
+						}}>确认收货</Button>
 					</View>
 				</View> : null}
 			</View>

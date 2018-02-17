@@ -13,7 +13,8 @@ import {
 
 import {
 	Modal,
-	ListView
+	ListView,
+	Toast
 } from 'antd-mobile';
 
 import StyleSheet from 'StyleSheet';
@@ -53,6 +54,11 @@ var styles = StyleSheet.create({
 		// 对齐方式
 		marginLeft: 6,
 		justifyContent: 'space-around'
+	},
+
+	noSearchStyle: {
+		textAlign: 'center',
+		marginTop: 30,
 	}
 });
 
@@ -63,7 +69,8 @@ class Home extends React.Component {
 		var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		this.state = {
 			dataSource: ds,
-			headloading: false
+			headloading: false,
+			search: {}
 		};
 	};
 
@@ -87,9 +94,23 @@ class Home extends React.Component {
 		this.fetch();
 	};
 
+	onSearch = (search) => {
+		if (search) {
+			this.setState({
+				search,
+				headloading: true,
+			}, this.fetch);
+		} else {
+			this.setState({
+				search: {},
+				headloading: true,
+			}, this.fetch);
+		}
+	}
+
 	fetch() {
 		CommodityAction.queryAllOnline({
-			params: {},
+			params: this.state.search,
 			success: (res) => {
 				if (res && res.success) {
 					this.setState({
@@ -117,7 +138,7 @@ class Home extends React.Component {
 					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>价格：<MoneyView number={rowData.pricePi} size={0.8} />/件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<MoneyView number={rowData.priceBr} size={0.6} />/支</Text>
 					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>终端利润：<MoneyView number={rowData.profitPi} size={0.6} />/件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<MoneyView number={rowData.profitBr} size={0.6} />/支</Text>
 					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>建议零售价：<MoneyView number={rowData.retailPriceBr} color="green" size={0.7} />/支</Text>
-					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>近周销量{rowData.sales}件</Text>
+					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>昨日销量{rowData.daySales}件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;周内销量{rowData.weekSales}件</Text>
 				</View>
 			</View>
 		</TouchableNativeFeedback>;
@@ -141,20 +162,23 @@ class Home extends React.Component {
 	render() {
 		return (
 			<View style={{flex: 1}} >
-				<HeaderNoBack />
-				<ListView
-					style={{paddingBottom: 17}}
-					refreshControl={
-						<RefreshControl
-							onRefresh={() => this.refreshData()}
-							refreshing={this.state.headloading}
-							colors={['#4a9df8']}
-							progressBackgroundColor="#ffffff"
-						/>
-					}
-					dataSource={this.state.dataSource}
-					renderRow={this.renderRow.bind(this)}
-				/>
+				<HeaderNoBack search={true} callback={this.onSearch} />
+				{
+					this.state.dataSource && this.state.dataSource.getRowCount() > 0 ? <ListView
+						style={{paddingBottom: 17}}
+						refreshControl={
+							<RefreshControl
+								onRefresh={() => this.refreshData()}
+								refreshing={this.state.headloading}
+								colors={['#4a9df8']}
+								progressBackgroundColor="#ffffff"
+							/>
+						}
+						dataSource={this.state.dataSource}
+						renderRow={this.renderRow.bind(this)}
+					/> : <Text style={styles.noSearchStyle}>未查找到商品</Text>
+				}
+
 			</View>
 		);
 	}

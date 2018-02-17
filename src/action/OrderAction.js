@@ -21,6 +21,14 @@ export default OrderAction = {
 			error
 		});
 	},
+	complete: ({params, success, error}) => {
+		AjaxUtil.post({
+			url: '/ice/app/order/complete.json',
+			params,
+			success,
+			error
+		});
+	},
 	queryByPhone: ({params, success, error}) => {
 		AjaxUtil.post({
 			url: '/ice/app/order/queryByPhone.json',

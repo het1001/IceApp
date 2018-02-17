@@ -8,7 +8,7 @@ if (__DEV__) {
 	global.__REMOTE_URL__ = 'http://123.57.211.165';
 }
 
-global.appVersion = 20171126;
+global.appVersion = 20180217;
 
 import {AppRegistry} from 'react-native';
 import IceApp from './IceApp';

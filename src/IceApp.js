@@ -6,7 +6,8 @@ import {
 	StyleSheet,
 	View,
 	BackHandler,
-	Linking
+	Linking,
+	PermissionsAndroid
 } from 'react-native';
 
 import {
@@ -55,7 +56,16 @@ class IceApp extends React.Component {
 
 	componentWillMount() {
 		// 1. 获取手机本地地址（异步去做这个事情）
-		this.getLocation();
+		const granted = PermissionsAndroid.request(
+			PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+			{
+				'title': '申请位置权限',
+				'message': '便于定位您的位置'
+			}
+		)
+		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+			this.getLocation();
+		}
 
 		setTimeout(this.updateVersion.bind(this), 1500);
 		// setTimeout(this.initLogin.bind(this), 1500);

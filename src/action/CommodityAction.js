@@ -22,4 +22,13 @@ export default CommodityAction = {
 			error
 		});
 	},
+
+	getConditions: ({params, success, error}) => {
+		AjaxUtil.post({
+			url: '/ice/app/commodity/getConditions.json',
+			params,
+			success,
+			error
+		});
+	},
 }
