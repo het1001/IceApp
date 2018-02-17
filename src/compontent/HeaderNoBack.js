@@ -137,7 +137,7 @@ class HeaderNoBack extends React.Component {
 									compont.push(<View><Text>{conditions[key].desc}</Text>
 										<View style={styles.tagview}>
 											{conditions[key].data.map((item) => {
-												return <Tag small={true} selected={this.state.search[conditions[key].code] ? this.state.search[conditions[key].code].indexOf(item.id) > -1 : false} onChange={this.onTagChange.bind(this, conditions[key].code, item.id)} style={styles.tagstyle}>{item.name}</Tag>;
+												return <Tag selected={this.state.search[conditions[key].code] ? this.state.search[conditions[key].code].indexOf(item.id) > -1 : false} onChange={this.onTagChange.bind(this, conditions[key].code, item.id)} style={styles.tagstyle}>{item.name}</Tag>;
 											})}
 										</View>
 									</View>);

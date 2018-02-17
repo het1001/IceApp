@@ -34,6 +34,7 @@ import UserAction from './action/UserAction';
 import AppAction from './action/AppAction';
 
 import { StackNavigator } from 'react-navigation';
+import Permissions from 'react-native-permissions'
 
 const styles = StyleSheet.create({
 	root: {
@@ -56,16 +57,15 @@ class IceApp extends React.Component {
 
 	componentWillMount() {
 		// 1. 获取手机本地地址（异步去做这个事情）
-		const granted = PermissionsAndroid.request(
-			PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-			{
-				'title': '申请位置权限',
-				'message': '便于定位您的位置'
-			}
-		)
-		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+		Permissions.request('location', {
+			rationale: {
+				title: '获取位置权限',
+				message:
+				'便于定位您的位置',
+			},
+		}).then(response => {
 			this.getLocation();
-		}
+		})
 
 		setTimeout(this.updateVersion.bind(this), 1500);
 		// setTimeout(this.initLogin.bind(this), 1500);

@@ -157,6 +157,12 @@ class ComDetail extends React.Component {
 							fontSize: 15,
 							color: 'green'
 						}}>{'规格：' + data.standardPice + '支/件'}</Text>
+						{data.weight ? <Text style={{
+							marginBottom: 10,
+							marginLeft: 5,
+							fontSize: 15,
+							color: 'black'
+						}}>{'质量：' + data.weight + 'g/支'}</Text> : null}
 						<Text style={{
 							marginBottom: 10,
 							marginLeft: 5,
