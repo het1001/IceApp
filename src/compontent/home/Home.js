@@ -135,10 +135,9 @@ class Home extends React.Component {
 				<View style={styles.subItemStyle}>
 					<Text style={{marginTop: 5, marginBottom: 5, fontSize: 18, color: 'black'}}>{rowData.name} {rowData.promo ? <Text style={{fontSize: 17, color: 'red'}}>【促销】</Text> : ""}</Text>
 					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>规格：{rowData.standardPice} 支/件</Text>
-					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>价格：<MoneyView number={rowData.pricePi} size={0.8} />/件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<MoneyView number={rowData.priceBr} size={0.6} />/支</Text>
-					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>终端利润：<MoneyView number={rowData.profitPi} size={0.6} />/件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<MoneyView number={rowData.profitBr} size={0.6} />/支</Text>
+					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>价格：<MoneyView number={rowData.pricePi} size={0.8} />/件</Text>
+					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>终端利润：<MoneyView number={rowData.profitPi} size={0.6} />/件</Text>
 					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>建议零售价：<MoneyView number={rowData.retailPriceBr} color="green" size={0.7} />/支</Text>
-					<Text style={{marginBottom: 5, fontSize: 13, color: 'gray'}}>昨日销量{rowData.daySales}件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;周内销量{rowData.weekSales}件</Text>
 				</View>
 			</View>
 		</TouchableNativeFeedback>;

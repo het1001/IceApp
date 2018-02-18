@@ -5,7 +5,8 @@ import React from 'react';
 import {
 	Text,
 	View,
-	TouchableNativeFeedback
+	TouchableNativeFeedback,
+	ScrollView
 } from 'react-native';
 import StyleSheet from 'StyleSheet';
 
@@ -49,7 +50,11 @@ const styles = StyleSheet.create({
 	tagstyle: {
 		marginLeft: 12,
 		marginTop: 5,
-	}
+	},
+	scrollView: {
+		backgroundColor: '#dddddd',
+		height: 300,
+	},
 });
 
 class HeaderNoBack extends React.Component {
@@ -128,6 +133,7 @@ class HeaderNoBack extends React.Component {
 					onClose={this.onClose}
 					footer={[{ text: '确定', onPress: () => { this.onSearch(); } },{ text: '取消', onPress: () => { this.onClose(); } }]}
 				>
+					<ScrollView style={styles.scrollView}>
 					{
 						(()=>{
 							let  compont = [];
@@ -147,7 +153,7 @@ class HeaderNoBack extends React.Component {
 							return compont;
 						})()
 					}
-
+					</ScrollView>
 				</Modal>
 			</View>
 		);
