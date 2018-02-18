@@ -16,7 +16,7 @@ export default UserAction = {
 	getInitAuthCode: ({params, success, error}) => {
 		AjaxUtil.postNt({
 			url: '/ice/app/user/getInitAuthCode.json',
-			UserAction,
+			params,
 			success,
 			error
 		});
